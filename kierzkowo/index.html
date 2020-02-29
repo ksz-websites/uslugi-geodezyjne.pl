@@ -26,9 +26,10 @@
             "esri/Map",        
             "esri/views/MapView",
             "esri/layers/FeatureLayer",        
-            "esri/widgets/Track"
+            "esri/widgets/Track",
+            "esri/widgets/Home"
             ], 
-            function(Map, MapView, FeatureLayer, Track) {
+            function(Map, MapView, FeatureLayer, Track, Home) {
 
             var map = new Map({
                 basemap: "gray-vector"
@@ -51,12 +52,20 @@
 
             // Add user location on the map
             var track = new Track({
+                view: view,
+                goToLocationEnabled: false
+            });
+            //view.ui.add(track, "top-left");
+            view.when(function() {
+                track.start();
+            });
+
+
+            // Add the home button to the top left corner of the view
+            var homeBtn = new Home({
                 view: view
             });
-            view.ui.add(track, "top-left");
-            //view.when(function() {
-            //    track.start();
-            //});
+            view.ui.add(homeBtn, "top-left");
 
         });
     </script>
